@@ -1,9 +1,5 @@
 pipeline {
-    agent {
-        dockerfile {
-            filename 'Dockerfile2'
-            }
-    }
+    agent any
     environment {
         gitcommit = "${gitcommit}"
     }
@@ -23,6 +19,11 @@ pipeline {
           }  
         }
         stage('Build') {
+agent {
+        dockerfile {
+            filename 'Dockerfile2'
+            }
+    }
             steps {
                 sh 'mvn -B -DskipTests clean package'
             }
@@ -33,6 +34,11 @@ pipeline {
             }    
         }
         stage('Test') {
+agent {
+        dockerfile {
+            filename 'Dockerfile2'
+            }
+    }
             steps {
                 sh 'mvn test'
             }
@@ -43,6 +49,11 @@ pipeline {
             }
         }
         stage('Docker Build & Push') {
+agent {
+        dockerfile {
+            filename 'Dockerfile2'
+            }
+    }
           steps {
             script {  
               docker.withRegistry('https://registry.hub.docker.com', 'docker-hub') {
@@ -53,6 +64,11 @@ pipeline {
           }  
         }
         stage('Deploy') {
+agent {
+        dockerfile {
+            filename 'Dockerfile2'
+            }
+    }
             steps {
                 sh './jenkins/scripts/deliver.sh'
             }
