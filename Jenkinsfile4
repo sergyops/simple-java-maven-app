@@ -1,9 +1,5 @@
 pipeline {
-    agent {
-        dockerfile {
-            filename 'Dockerfile2'
-        }
-    }
+    agent any
     environment {
         gitcommit = "${gitcommit}"
     }
